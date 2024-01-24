@@ -21,7 +21,7 @@ namespace Producer.Producers
             _exchangeName = exchangeName;
             _routingKey = routingKey;
             _channel = channel;
-            _channel.ExchangeDeclare(_exchangeName, _exchangeName);
+            _channel.ExchangeDeclare(_exchangeName, _exchangeType);
         }
 
         public void Produce(string messageContent)

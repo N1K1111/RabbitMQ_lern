@@ -15,7 +15,7 @@ namespace Consumer.Consumers
         {
             channel.BasicQos(0, 10, false);
             channel.QueueDeclare(queueName, false, false, false, null);
-            channel.QueueBind(queueName, exchangeName, routingKey, null);
+            channel.QueueBind(queueName, exchangeName, routingKey,null);
 
             var consumer = new EventingBasicConsumer(channel);
             consumer.Received += (sender, e) =>
@@ -25,7 +25,7 @@ namespace Consumer.Consumers
                 var message = JsonSerializer.Deserialize<MessageDto>(Encoding.UTF8.GetString(body.ToArray()));
                 Console.WriteLine($"{DateTime.Now} Received message: {message.Content}");
                 channel.BasicAck(e.DeliveryTag, false);
-                Thread.Sleep(TimeSpan.FromSeconds(2)); // Имитация долгой обработки
+                //Thread.Sleep(TimeSpan.FromSeconds(2)); // Имитация долгой обработки
             };
 
             channel.BasicConsume(queueName, false, consumer);
